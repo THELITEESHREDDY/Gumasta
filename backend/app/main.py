@@ -1,4 +1,9 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
+from sqlalchemy import text
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from  app.db.session import get_db
+
 
 app = FastAPI(
     title="Gumasta API",
@@ -9,3 +14,12 @@ app = FastAPI(
 @app.get("/health")
 async def health_check():
     return {"status": "healthy"}
+
+
+@app.get("/health/db")
+async def database_health(
+    db: AsyncSession = Depends(get_db)
+):
+    await db.execute(text("SELECT 1"))
+
+    return {"database": "connected"}
