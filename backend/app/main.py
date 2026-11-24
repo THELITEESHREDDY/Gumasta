@@ -9,7 +9,7 @@ from app.routers.product import router as product_router
 from app.routers.customer import router as customer_router
 from app.routers.order import router as order_router
 from app.routers.payment import router as payment_router
-
+from app.routers.dashboard import router as dashboard_router
 
 app = FastAPI(
     title="Gumasta API",
@@ -21,6 +21,7 @@ app.include_router(auth_router)
 app.include_router(shop_router)
 app.include_router(order_router)
 app.include_router(payment_router)
+app.include_router(dashboard_router)
 @app.get("/health")
 async def health_check():
     return {"status": "healthy"}
