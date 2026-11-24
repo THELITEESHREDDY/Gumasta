@@ -5,11 +5,14 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from  app.db.session import get_db
 from app.routers.auth import router as auth_router
 from app.routers.shop import router as shop_router
+from app.routers.product import router as product_router
+
 
 app = FastAPI(
     title="Gumasta API",
     version="0.1.0"
 )
+app.include_router(product_router)
 app.include_router(auth_router)
 app.include_router(shop_router)
 @app.get("/health")
