@@ -6,6 +6,7 @@ from  app.db.session import get_db
 from app.routers.auth import router as auth_router
 from app.routers.shop import router as shop_router
 from app.routers.product import router as product_router
+from app.routers.customer import router as customer_router
 
 
 app = FastAPI(
@@ -13,6 +14,7 @@ app = FastAPI(
     version="0.1.0"
 )
 app.include_router(product_router)
+app.include_router(customer_router)
 app.include_router(auth_router)
 app.include_router(shop_router)
 @app.get("/health")
