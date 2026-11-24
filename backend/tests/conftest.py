@@ -53,3 +53,45 @@ async def client():
     finally:
         fastapi_app.dependency_overrides.pop(get_db, None)
         await engine.dispose()
+
+@pytest_asyncio.fixture
+async def create_authenticated_user(client):
+
+    async def create_user(email: str):
+
+        user_data = {
+            "name": "Test User",
+            "email": email,
+            "mobile": "9876543210",
+            "password": "TestPassword123"
+        }
+
+        response = await client.post(
+            "/auth/register",
+            json=user_data
+        )
+
+        assert response.status_code == 201
+
+        user = response.json()
+
+        response = await client.post(
+            "/auth/login",
+            data={
+                "username": email,
+                "password": user_data["password"]
+            }
+        )
+
+        assert response.status_code == 200
+
+        token = response.json()["access_token"]
+
+        return {
+            "user": user,
+            "headers": {
+                "Authorization": f"Bearer {token}"
+            }
+        }
+
+    return create_user
