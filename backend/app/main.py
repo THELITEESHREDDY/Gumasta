@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Depends
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession
+from fastapi.middleware.cors import CORSMiddleware
 
 from  app.db.session import get_db
 from app.routers.auth import router as auth_router
@@ -14,6 +15,13 @@ from app.routers.dashboard import router as dashboard_router
 app = FastAPI(
     title="Gumasta API",
     version="0.1.0"
+)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=False,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 app.include_router(product_router)
 app.include_router(customer_router)
