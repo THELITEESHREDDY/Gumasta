@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-
+import { Mic } from "lucide-react-native";
 import {
   View,
   Text,
@@ -289,6 +289,20 @@ export default function DashboardScreen() {
               router.push("/dashboard/orders/create")
             }
           />
+
+          {/* Voice Assistant */}
+          <TouchableOpacity
+            onPress={() => router.push("/dashboard/voice")}
+            className="flex-row items-center justify-center gap-2 rounded-xl border border-primary p-4"
+          >
+            <Mic size={22} color="#166534" />
+
+            <Text className="text-primary font-semibold">
+              Voice Assistant
+            </Text>
+          </TouchableOpacity>
+
+{/* Filters */}
 
           {/* Filters */}
 

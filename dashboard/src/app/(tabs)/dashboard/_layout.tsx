@@ -17,6 +17,11 @@ export default function DashboardLayout() {
         name="orders/[id]"
         options={{ title: "Order details" }}
       />
+
+      <Stack.Screen
+        name="voice"
+        options={{ title: "Voice Assistant" }}
+      />
     </Stack>
   );
 }
